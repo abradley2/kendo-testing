@@ -1,38 +1,21 @@
-var gulp = require('gulp')
-    gutil = require('gulp-util'),
-    watchify = require('watchify'),
-    browserify = require('browserify'),
-    //coffeeify = require('coffeeify'),
-    source = require('vinyl-source-stream'),
-    buffer = require('vinyl-buffer'),
-    sourcemaps = require('gulp-sourcemaps'),
-    assign = require('lodash.assign');
+var gulp = require('gulp');
 
-var customOpts = {
-  entries: ['./src/main.js'],
-  debug: true
-};
+gulp.task('browserify', require('./tasks/browserify.js'));
 
-var opts = assign({}, watchify.args, customOpts);
+gulp.task('watchify', require('./tasks/watchify.js'));
 
-// by using watchify we now have an 'update' event
-// that we can bind to our bundle action
-var bundler = watchify(browserify(opts));
+gulp.task('libs', require('./tasks/libs.js'));
 
-/* Apply transforms here */
-//bundler.transform(coffeeify);
+gulp.task('styles', require('./tasks/styles.js'));
 
-gulp.task('browserify', bundle);
-bundler.on('update', bundle);
-bundler.on('log', gutil.log);
+gulp.task('test', require('./tasks/test.js'));
 
-function bundle(){
-  return bundler.bundle()
-    .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-    .pipe(source('bundle.js'))
-    .pipe(buffer())
-    .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('./dist'));
-}
+gulp.task('watch-styles', function(){
+  gulp.watch(['./src/styles/**/*'],['styles']);
+});
 
-gulp.task('default',['browserify']);
+gulp.task('build',['browserify','libs','styles']);
+
+gulp.task('watch',['watchify','libs','styles','watch-styles']);
+
+gulp.task('default',['build']);
