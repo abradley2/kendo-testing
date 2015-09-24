@@ -1,10 +1,3 @@
-var Api = (function(){
+api = _.extend({}, require('./data/index.js'));
 
-  function Api(){
-
-  }
-  
-  return Api;
-})();
-
-module.exports = new Api();
+module.exports = api;

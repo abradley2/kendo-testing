@@ -33,9 +33,10 @@ var ViewManager = (function(){
       }
       layout.isRendered = false;
     });
-    if (!this.layouts[layout].isRendered){
-      this.layouts[layout].controller.render($('body'));
+    if (_.isNull(this.layouts[layout].controller)){
+      this.layouts[layout].controller = new this.layouts[layout].factory();
     }
+    this.layouts[layout].controller.render($('body'));
     this.activeLayout = this.layouts[layout].controller
   };
 
@@ -49,18 +50,18 @@ var ViewManager = (function(){
     });
   };
 
-  ViewManager.prototype.renderView = function(newView){
+  ViewManager.prototype.renderView = function(newView, query){
     var self = this;
     if(_.isArray(newView)){
       _.each(newView, function(view){
-        self.renderView(view, params);
+        self.renderView(view, query);
       });
     } else {
-      this.renderLayout(this.views[newView].layout);
       this.views[newView].isRendered = true;
       if (_.isNull(this.views[newView].controller)){
         this.views[newView].controller =  new this.views[newView].factory();
       }
+      this.views[newView].controller.params = query;
       this.activeLayout.showIn(
         this.views[newView].el,
         this.views[newView].controller
@@ -68,9 +69,10 @@ var ViewManager = (function(){
     }
   };
 
-  ViewManager.prototype.render = function(view, params){
-    this.cleanup(view);
-    this.renderView(view, params);
+  ViewManager.prototype.render = function(params, query){
+    this.cleanup(params.views);
+    this.renderLayout(params.layout);
+    this.renderView(params.views, query);
   };
 
   return ViewManager;
