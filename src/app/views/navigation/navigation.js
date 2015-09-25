@@ -5,13 +5,13 @@ function navigation(params){
     title: "this is the home page"
   };
   this.show = function(){
-    console.log('show: ',this);
+
   };
   this.hide = function(){
-    console.log('hide: ',this);
+
   };
   this.init = function(){
-    console.log('init: ',this);
+
   };
 }
 

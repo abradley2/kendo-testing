@@ -1,4 +1,5 @@
 window._ = require('lodash');
+require('../../node_modules/bootstrap/dist/js/npm.js');
 
 $(document).ready(function(){
   window.api = require('./api.js');

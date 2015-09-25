@@ -1,17 +1,21 @@
 function home(params){
   var self = this;
   this.evalTemplate = true;
-  this.model = {
-    title: "Welcome to Tony's awesome Kendo App"
-  };
+  this.model = kendo.observable({
+    title: 'I am the default title'
+  });
   this.show = function(){
-    console.log('show: ',this);
+
   };
   this.hide = function(){
-    console.log('hide: ',this);
+
   };
   this.init = function(){
-    console.log('init: ',this);
+    var self = this;
+    this.titleDS = api.getTitleDS();
+    this.titleDS.fetch(function(){
+      self.model.set('title',this.get('title').value);
+    });
   };
 }
 
