@@ -1,7 +1,10 @@
 function about(){
   viewManager.render({
     layout: 'default',
-    views: ['about']
+    views: {
+      '#navigation-region': 'navigation',
+      '#content-region': 'about'
+    }
   });
 }
 

@@ -1,9 +1,14 @@
 exports.home = {
-  el: '#content-region',
-  template: require('./home.html')
+  template: require('./home/home.html'),
+  viewModel: require('./home/home.js')
 };
 
 exports.about = {
-  el: '#content-region',
-  template: require('./about.html')
+  template: require('./about/about.html'),
+  viewModel: require('./about/about.js')
+};
+
+exports.navigation = {
+  template: require('./navigation/navigation.html'),
+  viewModel: require('./navigation/navigation.js')
 };

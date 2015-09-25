@@ -1,4 +1,4 @@
-router = new  kendo.Router()
+router = new kendo.Router()
 
 routes = require('./routes/index.js');
 

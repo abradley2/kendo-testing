@@ -1,8 +1,10 @@
 function home(){
-  console.log('RENDER HOME!');
   viewManager.render({
     layout: 'default',
-    views: ['home']
+    views: {
+      '#navigation-region': 'navigation',
+      '#content-region': 'home'
+    }
   });
 }
 

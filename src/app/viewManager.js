@@ -1,29 +1,23 @@
 var ViewManager = (function(){
 
+  function viewFactory(views,type){
+    var retVal = {};
+    _.each(views, function(params, view){
+      retVal[view] = {
+        factory: function(){
+          return new kendo[type](params.template, new params.viewModel());
+        },
+        isRendered: false,
+        controller: null
+      };
+    });
+    return retVal;
+  }
+
   function ViewManager(){
-    var self = this;
     this.activeLayout;
-    this.layouts = {};
-    this.views = {};
-    _.each(require('./views/index.js'), function(params, view){
-      self.views[view] = {
-        factory: function(){
-          return new kendo.View(params.template);
-        },
-        el: params.el,
-        isRendered: false,
-        controller: null
-      };
-    });
-    _.each(require('./layouts/index.js'), function(template, layout){
-      self.layouts[layout] = {
-        factory: function(){
-          return new kendo.Layout(template);
-        },
-        isRendered: false,
-        controller: null
-      };
-    });
+    this.layouts = viewFactory(require('./layouts/index.js'),'Layout');
+    this.views = viewFactory(require('./views/index.js'),'View');
   }
 
   ViewManager.prototype.renderLayout = function(layout){
@@ -50,27 +44,22 @@ var ViewManager = (function(){
     });
   };
 
-  ViewManager.prototype.renderView = function(newView, query){
+  ViewManager.prototype.renderView = function(newViews, query){
     var self = this;
-    if(_.isArray(newView)){
-      _.each(newView, function(view){
-        self.renderView(view, query);
-      });
-    } else {
-      this.views[newView].isRendered = true;
-      if (_.isNull(this.views[newView].controller)){
-        this.views[newView].controller =  new this.views[newView].factory();
+    _.each(newViews, function(newView, region){
+      self.views[newView].isRendered = true;
+      if (_.isNull(self.views[newView].controller)){
+        self.views[newView].controller =  new self.views[newView].factory(query);
       }
-      this.views[newView].controller.params = query;
-      this.activeLayout.showIn(
-        this.views[newView].el,
-        this.views[newView].controller
+      self.activeLayout.showIn(
+        region,
+        self.views[newView].controller
       );
-    }
+    });
   };
 
   ViewManager.prototype.render = function(params, query){
-    this.cleanup(params.views);
+    this.cleanup(_.values(params.views));
     this.renderLayout(params.layout);
     this.renderView(params.views, query);
   };

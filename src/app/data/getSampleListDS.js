@@ -9,11 +9,13 @@ function getSampleListDS(){
     }
   });
 
-  var sampleList = new kendo.data.DataSource({
+  var sampleListDS = new kendo.data.DataSource({
     schema: {
       model: sampleListItem
     }
   });
+
+  return sampleListDS;
 }
 
 module.exports = getSampleListDS;

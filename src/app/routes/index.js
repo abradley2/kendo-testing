@@ -1,4 +1,4 @@
-exports[''] = require('./home.js');
+exports['/'] = require('./home.js');
 
 exports['home'] = require('./home.js');
 
