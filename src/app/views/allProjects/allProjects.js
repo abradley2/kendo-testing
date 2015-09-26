@@ -11,7 +11,7 @@ function allProjects(params){
 
   this.show = function(){
     var self = this;
-    $('#projects-listview').kendoListView({
+    $('#projects-listview').kendoGrid({
       dataSource: self.listViewDS,
       template: "<div>#:name#</div>"
     });

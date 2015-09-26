@@ -14,10 +14,10 @@ var ViewManager = (function(){
     return retVal;
   }
 
-  function ViewManager(){
+  function ViewManager(layouts, views){
     this.activeLayout;
-    this.layouts = viewFactory(require('./layouts/index.js'),'Layout');
-    this.views = viewFactory(require('./views/index.js'),'View');
+    this.layouts = viewFactory(layouts,'Layout');
+    this.views = viewFactory(views,'View');
   }
 
   ViewManager.prototype.renderLayout = function(layout){
@@ -67,4 +67,7 @@ var ViewManager = (function(){
   return ViewManager;
 })();
 
-module.exports = new ViewManager();
+module.exports = new ViewManager(
+  require('./layouts/index.js'),
+  require('./views/index.js')
+);

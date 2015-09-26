@@ -12,10 +12,6 @@ function home(params){
   };
   this.init = function(){
     var self = this;
-    this.titleDS = api.getTitleDS();
-    this.titleDS.fetch(function(){
-      self.model.set('title',this.get('title').value);
-    });
   };
 }
 
