@@ -1,9 +1,24 @@
+function getProjectDetails(event){
+  var detailRow = event.detailRow;
+  var projectDetailsDS = api.getProjectDetailsDS(event.data.id);
+  projectDetailsDS.fetch(function(){
+    console.log('this.data() = ',this.data());
+  });
+}
+
 function allProjects(params){
   var self = this;
   this.evalTemplate = true;
-
   this.model = kendo.observable({
-    title: "All Projects",
+    projectsListDS: api.getProjectsListDS(),
+    hasChanges: false,
+    saveChanges: function(){
+      this.projectsListDS.sync();
+    },
+    cancelChanges: function(){
+      console.log('this = ',this);
+      this.projectsListDS.cancelChanges();
+    },
     createProjectDialog: function(){
 
     }
@@ -11,9 +26,38 @@ function allProjects(params){
 
   this.show = function(){
     var self = this;
-    $('#projects-listview').kendoGrid({
-      dataSource: self.listViewDS,
-      template: "<div>#:name#</div>"
+
+    this.pager = $('#projects-pager').kendoPager({
+      dataSource: self.model.projectsListDS
+    });
+
+    this.grid = $('#projects-grid').kendoGrid({
+      dataSource: self.model.projectsListDS,
+      detailTemplate: kendo.template($('#projects-grid-detail-template').html()),
+      detailInit: getProjectDetails,
+      pager: self.pager,
+      editable: true,
+      columns: [
+        {
+          field: 'title',
+          title: 'Title'
+        },{
+          field: 'manager',
+          title: 'Manager'
+        },{
+          field: 'projectedStart',
+          title: 'Projected Start'
+        },{
+          field: 'start',
+          title: 'Start'
+        },{
+          field: 'projectedEnd',
+          title: 'Projected End'
+        },{
+          field: 'end',
+          title: 'End'
+        }
+      ]
     });
   };
 
@@ -23,8 +67,9 @@ function allProjects(params){
 
   this.init = function(){
     var self = this;
-    this.listViewDS = api.getProjectsListDS();
-    console.log('listViewDS = ',this.listViewDS);
+    this.model.projectsListDS.bind('change', function(){
+      self.model.set('hasChanges', this.hasChanges());
+    });
   };
 
 }

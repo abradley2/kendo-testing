@@ -38,7 +38,8 @@
     "build-client": "gulp build",
     "watch-server": "nodemon server.js",
     "build-server": "node server.js",
-    "build-leveldb": "node ./scripts/levelBatchInit.js",
+    "create-db": "node ./scripts/levelCreate.js",
+    "destroy-db": "node ./scripts/levelDestroy.js",
     "build": "gulp build",
     "start": "node server.js"
   }

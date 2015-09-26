@@ -1,5 +1,10 @@
-<h3 data-bind='text: title'></h3>
-<div id='projects-listview'></div>
-<button class='btn btn-default' data-bind='click: createProjectDialog'>
+<button class='btn btn-primary' data-bind='click: createProjectDialog'>
   Create Project
 </button>
+<button class='btn btn-success' data-bind='visible: hasChanges, click: saveChanges'>Save Changes</button>
+<button class='btn btn-warning' data-bind='visible: hasChanges, click: cancelChanges'>Cancel Changes</button>
+<div id='projects-grid'></div>
+<div id='projects-pager'></div>
+<template id='projects-grid-detail-template'>
+  <h3> Test </h3>
+</template>

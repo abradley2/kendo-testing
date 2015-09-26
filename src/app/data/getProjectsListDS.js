@@ -2,7 +2,15 @@ function getProjectsListDS(){
   var projectModel = {
     id: 'id',
     fields: {
+      'id': {
+        type: 'number',
+        editable: false
+      },
       'title': {
+        type: 'string',
+        editable: true
+      },
+      'description': {
         type: 'string',
         editable: true
       },
@@ -11,19 +19,19 @@ function getProjectsListDS(){
         editable: true
       },
       'projectedStart': {
-        type: 'string',
+        type: 'date',
         editable: true
       },
       'start': {
-        type: 'string',
+        type: 'date',
         editable: true
       },
       'projectedEnd': {
-        type: 'string',
+        type: 'date',
         editable: true
       },
       'end': {
-        type: 'string',
+        type: 'date',
         editable: true
       }
     }
@@ -33,26 +41,30 @@ function getProjectsListDS(){
     transport: {
       create: {
         url: '/projects',
-        dataType: 'json'
+        dataType: 'json',
+        type: 'POST'
       },
       read: {
         url: '/projects',
-        dataType: 'json'
+        dataType: 'json',
+        type: 'GET'
       },
       update: {
         url: '/projects',
-        dataType: 'json'
+        dataType: 'json',
+        type: 'PUT'
       },
       destroy: {
         url: '/projects',
-        dataType: 'json'
+        dataType: 'json',
+        type: 'DELETE'
       }
     },
     schema: {
       model: projectModel
     },
     page: 1,
-    pageSize: 10
+    pageSize: 2
   });
 
   return projectsListDS;
