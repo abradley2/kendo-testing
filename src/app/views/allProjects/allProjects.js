@@ -1,3 +1,5 @@
+// todo: grid does not work for mobile. Have a listView ready
+
 function getProjectDetails(event){
   var detailRow = event.detailRow;
   var projectDetailsDS = api.getProjectDetailsDS(event.data.id);
@@ -9,7 +11,7 @@ function getProjectDetails(event){
 function allProjects(params){
   var self = this;
   this.evalTemplate = true;
-  
+
   this.model = kendo.observable({
     projectsListDS: api.getProjectsListDS(),
     hasChanges: false,
@@ -39,7 +41,7 @@ function allProjects(params){
       editable: true,
       filterable: true,
       sortable: true,
-      groupable: true,
+      groupable: false,
       columns: [
         {
           field: 'title',

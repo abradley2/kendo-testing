@@ -64,7 +64,7 @@ function getProjectsListDS(){
       model: projectModel
     },
     page: 1,
-    pageSize: 2
+    pageSize: 10
   });
 
   return projectsListDS;

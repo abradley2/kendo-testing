@@ -43,6 +43,27 @@
   },
   {
     "type": "put",
+    "key": "projectTeam~1",
+    "value": {
+
+    }
+  },
+  {
+    "type": "put",
+    "key": "projectTeam~2",
+    "value": {
+
+    }
+  },
+  {
+    "type": "put",
+    "key": "projectTeam~3",
+    "value": {
+
+    }
+  },
+  {
+    "type": "put",
     "key": "task~1~1",
     "value": {
       "id": 1,
@@ -93,6 +114,17 @@
       "predecessorId": 1,
       "successorId": 2,
       "type": 0
+    }
+  },
+  {
+    "type": "put",
+    "key": "teamMember~1",
+    "value": {
+      "id": 1,
+      "name": "Tony Bradley",
+      "email": "antbradley91@gmail.com",
+      "phone": "555-5555",
+      "position": "Code Monkey"
     }
   }
 ]

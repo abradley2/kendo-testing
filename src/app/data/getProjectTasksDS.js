@@ -1,9 +1,6 @@
-// This dataSource is a container for ProjectTasksDS + ProjectTeamDS
+function getProjectTasksDS(projectId){
 
-
-function getProjectDetailsDS(projectDetailId){
-
-  var projectDetailModel = {
+  var projectTaskModel = {
     id: 'id',
     fields: {
       totalTasks: {
@@ -21,22 +18,22 @@ function getProjectDetailsDS(projectDetailId){
     }
   };
 
-  var projectDetailsDS = new kendo.data.DataSource({
+  var projectTasksDS = new kendo.data.DataSource({
 
     schema: {
-      model: projectDetailModel
+      model: projectTaskModel
     },
 
     transport: {
       read: {
-        url: '/projects/' + projectDetailId,
+        url: '/project/' + projectId,
         dataType: 'json'
       }
     }
 
   });
 
-  return projectDetailsDS;
+  return projectTasksDS;
 }
 
-module.exports = getProjectDetailsDS;
+module.exports = getProjectTasksDS;
