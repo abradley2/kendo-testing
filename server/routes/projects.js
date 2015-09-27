@@ -14,32 +14,52 @@ exports.getProjects = function(req, res){
 
 exports.getProjectDetails = function(req, res){
   var projectId = req.params.projectDetailId,
-      totalTasks = 0,
-      completedTasks = 0,
-      unfinishedTasks = 0;
-  dbh.createReadStream({
-    gt: ('task~' + projectId + '~!'),
-    lt: ('task~' + projectId + '~~')
-  })
-    .on('data', function(data){
-      var task = JSON.parse(data.value);
+      tasks = [],
+      team = [];
 
-      if(task.end){
-        totalTasks++;
-        completedTasks++;
-      } else {
-        unfinishedTasks++;
-      }
 
-    })
-    .on('end', function(){
-      res.json([
-        {
-          totalTasks: totalTasks,
-          completedTasks: completedTasks,
-          unfinishedTasks: unfinishedTasks
-        }
-      ]);
+  // readStreams are async, the order is as follows:
+  // getTasks -> getTeam -> sendRes
+  getTasks();
+
+
+  function sendRes(){
+    res.json({
+      tasks: tasks,
+      team: team
     });
+  }
+
+  function getTeam(){
+    console.log('get this = projectTeam~' + projectId);
+    dbh.get('projectTeam~' + projectId, function(err, value){
+      if(err){
+        console.log('error = ',err);
+      }
+      console.log('data = ',value);
+      team = JSON.parse(value);
+      sendRes();
+    });
+  }
+
+  function getTasks(){
+    dbh.createReadStream({
+      gt: ('task~' + projectId + '~!'),
+      lt: ('task~' + projectId + '~~')
+    })
+      .on('data', function(data){
+        var task = JSON.parse(data.value);
+
+        if(task.end){
+          task.completed = true
+        } else {
+          task.completed = false
+        }
+        console.log('task = ',task);
+        tasks.push(task);
+
+      })
+      .on('end', getTeam);
+  }
 
 };

@@ -4,7 +4,7 @@ function getProjectDetails(event){
   var detailRow = event.detailRow;
   var projectDetailsDS = api.getProjectDetailsDS(event.data.id);
   projectDetailsDS.fetch(function(){
-    console.log('this.data() = ',this.data());
+    console.log('projectDetailsDS = ',this);
   });
 }
 
@@ -42,6 +42,7 @@ function allProjects(params){
       filterable: true,
       sortable: true,
       groupable: false,
+      selectable: true,
       columns: [
         {
           field: 'title',

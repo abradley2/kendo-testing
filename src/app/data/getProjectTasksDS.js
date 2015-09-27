@@ -22,13 +22,6 @@ function getProjectTasksDS(projectId){
 
     schema: {
       model: projectTaskModel
-    },
-
-    transport: {
-      read: {
-        url: '/project/' + projectId,
-        dataType: 'json'
-      }
     }
 
   });

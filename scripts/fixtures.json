@@ -44,23 +44,41 @@
   {
     "type": "put",
     "key": "projectTeam~1",
-    "value": {
-
-    }
+    "value": [
+      {
+        "id": 1,
+        "name": "Tony Bradley",
+        "email": "antbradley91@gmail.com",
+        "phone": "555-5555",
+        "position": "Code Monkey"
+      }
+    ]
   },
   {
     "type": "put",
     "key": "projectTeam~2",
-    "value": {
-
-    }
+    "value": [
+      {
+        "id": 1,
+        "name": "Tony Bradley",
+        "email": "antbradley91@gmail.com",
+        "phone": "555-5555",
+        "position": "Code Monkey"
+      }
+    ]
   },
   {
     "type": "put",
     "key": "projectTeam~3",
-    "value": {
-
-    }
+    "value": [
+      {
+        "id": 1,
+        "name": "Tony Bradley",
+        "email": "antbradley91@gmail.com",
+        "phone": "555-5555",
+        "position": "Code Monkey"
+      }
+    ]  
   },
   {
     "type": "put",
