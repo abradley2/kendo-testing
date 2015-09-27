@@ -43,23 +43,34 @@ function allProjects(params){
       sortable: true,
       groupable: false,
       selectable: true,
+      change: function(event){
+        var grid = event.sender;
+        $('#projects-grid').find('.k-master-row').each(function(idx,row){
+          grid.collapseRow(row)
+        });
+        grid.expandRow(this.select());
+      },
       columns: [
+        {
+          field: 'id',
+          template: "<a href='\\#project/#= id #'>View Project</a>"
+        },
         {
           field: 'title',
           title: 'Title'
         },{
           field: 'manager',
           title: 'Manager'
-        },{
+        },/*{
           field: 'projectedStart',
           title: 'Projected Start'
-        },{
+        },*/{
           field: 'start',
           title: 'Start'
-        },{
+        },/*{
           field: 'projectedEnd',
           title: 'Projected End'
-        },{
+        },*/{
           field: 'end',
           title: 'End'
         }

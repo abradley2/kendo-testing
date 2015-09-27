@@ -61,7 +61,6 @@ function getProjectDetailsDS(projectDetailId){
           }
         });
         tasksDS.read();
-        console.log('tasksDS = ',tasksDS);
         var teamDS = new kendo.data.DataSource({
           data: res.team,
           schema: {
@@ -69,7 +68,6 @@ function getProjectDetailsDS(projectDetailId){
           }
         });
         teamDS.read();
-        console.log('teamDS = ',teamDS);
         return [
           {
             id: 'tasks',
