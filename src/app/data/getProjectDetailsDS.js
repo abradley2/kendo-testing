@@ -18,10 +18,12 @@ function getProjectDetailsDS(projectDetailId){
     }
   };
 
-  var projectDetailsDS = new kendo.data.DataSource({
+  var projectDetailsDS = new kendo.data.HierarchicalDataSource({
 
     schema: {
-      model: projectDetailModel
+      model: {
+        children: 'items'
+      }
     },
 
     transport: {

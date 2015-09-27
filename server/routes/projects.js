@@ -33,13 +33,18 @@ exports.getProjectDetails = function(req, res){
 
     })
     .on('end', function(){
-      res.json([
-        {
-          totalTasks: totalTasks,
-          completedTasks: completedTasks,
-          unfinishedTasks: unfinishedTasks
-        }
-      ]);
+      res.json(
+        [
+          {
+            categoryName: 'Task Summary',
+            items: [{
+              totalTasks: totalTasks,
+              completedTasks: completedTasks,
+              unfinishedTasks: unfinishedTasks
+            }]
+          }
+        ]
+      );
     });
 
 };
