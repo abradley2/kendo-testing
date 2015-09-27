@@ -11,6 +11,7 @@ var dbh = levelup('./level', {
   errorIfExists: false
 },open);
 
+
 function open(err){
   if(err){
     console.log('error! ',err);
