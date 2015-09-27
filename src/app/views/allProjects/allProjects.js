@@ -9,6 +9,7 @@ function getProjectDetails(event){
 function allProjects(params){
   var self = this;
   this.evalTemplate = true;
+  
   this.model = kendo.observable({
     projectsListDS: api.getProjectsListDS(),
     hasChanges: false,
@@ -16,7 +17,6 @@ function allProjects(params){
       this.projectsListDS.sync();
     },
     cancelChanges: function(){
-      console.log('this = ',this);
       this.projectsListDS.cancelChanges();
     },
     createProjectDialog: function(){
@@ -37,6 +37,9 @@ function allProjects(params){
       detailInit: getProjectDetails,
       pager: self.pager,
       editable: true,
+      filterable: true,
+      sortable: true,
+      groupable: true,
       columns: [
         {
           field: 'title',
