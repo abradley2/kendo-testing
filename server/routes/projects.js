@@ -36,7 +36,6 @@ exports.getProjectDetails = function(req, res){
       if(err){
         console.log('error = ',err);
       }
-      console.log('data = ',value);
       team = JSON.parse(value);
       sendRes();
     });
@@ -55,7 +54,6 @@ exports.getProjectDetails = function(req, res){
         } else {
           task.completed = false
         }
-        console.log('task = ',task);
         tasks.push(task);
 
       })
