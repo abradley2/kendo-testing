@@ -1,3 +1,15 @@
-.k-dirty {
-  border-width: 7px;
+
+tr.k-master-row {
+  td.k-dirty-cell {
+    span.k-dirty {
+      border-width: 7px;
+    }
+  }
+  &.k-state-selected {
+    td {
+      a {
+        color: white;
+      }
+    }
+  }
 }

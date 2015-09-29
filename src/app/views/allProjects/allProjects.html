@@ -1,10 +1,42 @@
-<button class='btn btn-primary' data-bind='click: createProjectDialog'>
-  Create Project
-</button>
-<button class='btn btn-success' data-bind='visible: hasChanges, click: saveChanges'>Save Changes</button>
-<button class='btn btn-warning' data-bind='visible: hasChanges, click: cancelChanges'>Cancel Changes</button>
+<div class='row'>
+  <div class='btn-group col-sm-6'>
+    <button type='button' class='btn btn-primary' data-bind='click: createProjectDialog'>
+      Add Project
+    </button>
+    <button type='button' class='btn btn-success' data-bind='visible: hasChanges, click: saveChanges'>Save Changes</button>
+    <button type='button' class='btn btn-warning' data-bind='visible: hasChanges, click: cancelChanges'>Cancel Changes</button>
+  </div>
+  <div class='col-sm-6'>
+    <div class='col-xs-6'>
+      <input type='text' class='form-control' data-bind='value: titleSearchValue'></input>
+    </div>
+    <div class='col-xs-6'>
+      <button class='btn btn-default' data-bind='click: searchByTitle'>Search By Title</button>
+    </div>
+  </div>
+</div>
 <div id='projects-grid'></div>
 <div id='projects-pager'></div>
+
+<template id='projects-grid-action-template'>
+  <a href='\\#project/#= id #'><i class='fa fa-sitemap'></i><span>Manage Tasks</span></a>
+  <br/>
+  <a href='\\#reports/#= id #'><i class='fa fa-area-chart'></i><span>View Reports</span></a>
+  <br/>
+  <a href='\\#team/#= id #'><i class='fa fa-users'></i><span>Manage Team</span></a>
+</template>
+
 <template id='projects-grid-detail-template'>
-  <h3> Test </h3>
+  <div class='row'>
+    <p class='lead'>#:description#</p>
+    <div class='col-sm-4'>
+      <div class='team-container'></div>
+      <div class='team-pager'></div>
+    </div>
+
+    <div class='col-sm-7'>
+      <div class='tasks-container'></div>
+      <div class='tasks-pager'></div>
+    </div>
+  </div>
 </template>

@@ -50,19 +50,23 @@ function getProjectDetailsDS(projectDetailId){
       parse: function(res){
         var tasksDS = new kendo.data.DataSource({
           data: res.tasks,
+          page: 1,
+          pageSize: 10,
           schema: {
             model: taskModel
-          },
+          }/*,
           group: {
             field: 'status',
             aggregates: [
               {field: 'title', aggregate: 'count'}
             ]
-          }
+          }*/
         });
         tasksDS.read();
         var teamDS = new kendo.data.DataSource({
           data: res.team,
+          page: 1,
+          pageSize: 10,
           schema: {
             model: teamModel
           }

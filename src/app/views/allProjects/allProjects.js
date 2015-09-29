@@ -3,18 +3,67 @@
 function getProjectDetails(event){
   var detailRow = event.detailRow;
   var projectDetailsDS = api.getProjectDetailsDS(event.data.id);
+
   projectDetailsDS.fetch(function(){
-    console.log('projectDetailsDS = ',this);
+    var tasksDS = this.get('tasks').ds,
+        teamDS = this.get('team').ds;
+
+    var tasksPager = $(detailRow).find('.tasks-pager').kendoPager({
+      dataSource: tasksDS
+    });
+
+    var teamPager = $(detailRow).find('.team-pager').kendoPager({
+      dataSource: teamDS
+    });
+
+    var tasksGrid = $(detailRow).find('.tasks-container').kendoGrid({
+      dataSource: tasksDS,
+      pager: tasksPager,
+      columns: [
+        {
+          field: 'title',
+          title: 'Title'
+        },
+        {
+          field: 'completed',
+          title: 'Completed'
+        }
+      ]
+    });
+
+    var teamGrid = $(detailRow).find('.team-container').kendoGrid({
+      dataSource: teamDS,
+      pager: teamPager,
+      columns: [
+        {
+          field: 'name',
+          title: 'Name'
+        },
+        {
+          field: 'position',
+          title: 'Position'
+        }
+      ]
+    });
+
   });
 }
 
 function allProjects(params){
   var self = this;
-  this.evalTemplate = true;
+  this.evalTemplate = false;
 
   this.model = kendo.observable({
     projectsListDS: api.getProjectsListDS(),
     hasChanges: false,
+    titleSearchValue: '',
+    searchByTitle: function(){
+      this.projectsListDS.filter({
+        field: 'title',
+        operator: 'contains',
+        value: this.titleSearchValue
+      });
+    },
     saveChanges: function(){
       this.projectsListDS.sync();
     },
@@ -53,14 +102,16 @@ function allProjects(params){
       columns: [
         {
           field: 'id',
-          template: "<a href='\\#project/#= id #'>View Project</a>"
+          title: 'Links',
+          filterable: false,
+          groupable: false,
+          sortable: false,
+          template: $('#projects-grid-action-template').html()
+          //template: "<a href='\\#project/#= id #'><i class='fa fa-sitemap'></i>View Project</a>"
         },
         {
           field: 'title',
           title: 'Title'
-        },{
-          field: 'manager',
-          title: 'Manager'
         },/*{
           field: 'projectedStart',
           title: 'Projected Start'

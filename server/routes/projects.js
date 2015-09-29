@@ -1,6 +1,7 @@
 var dbh = require('../dbh.js'),
     _ = require('lodash');
 
+
 exports.getProjects = function(req, res){
   var projects = [];
   dbh.createReadStream({gt: 'project~!', lt: 'project~~'})
@@ -31,7 +32,6 @@ exports.getProjectDetails = function(req, res){
   }
 
   function getTeam(){
-    console.log('get this = projectTeam~' + projectId);
     dbh.get('projectTeam~' + projectId, function(err, value){
       if(err){
         console.log('error = ',err);

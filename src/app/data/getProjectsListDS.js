@@ -61,7 +61,15 @@ function getProjectsListDS(){
       }
     },
     schema: {
-      model: projectModel
+      model: projectModel,
+      parse: function(res){
+        /*
+        _.each(res, function(item){
+          item.manager = JSON.stringify(item.manager);
+        });
+        */
+        return res;
+      }
     },
     page: 1,
     pageSize: 10
