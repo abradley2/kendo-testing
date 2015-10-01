@@ -1,8 +1,9 @@
-function project(){
+function project(projectId){
   var self = this;
-  
-  this.model = kendo.observable({
+  console.log('view projectId = ',projectId);
 
+  this.model = kendo.observable({
+    projectId: projectId
   });
 
   this.show = function(){
@@ -14,7 +15,7 @@ function project(){
   };
 
   this.init = function(){
-
+    console.log('projectId = ',this.model);
   };
 
 }
