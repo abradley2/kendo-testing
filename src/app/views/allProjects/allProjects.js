@@ -107,7 +107,6 @@ function allProjects(params){
           groupable: false,
           sortable: false,
           template: $('#projects-grid-action-template').html()
-          //template: "<a href='\\#project/#= id #'><i class='fa fa-sitemap'></i>View Project</a>"
         },
         {
           field: 'title',
