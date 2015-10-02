@@ -18,7 +18,6 @@ exports.getProjectDetails = function(req, res){
       tasks = [],
       team = [];
 
-
   // readStreams are async, the order is as follows:
   // getTasks -> getTeam -> sendRes
   getTasks();

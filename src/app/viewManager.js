@@ -4,8 +4,8 @@ var ViewManager = (function(){
     var retVal = {};
     _.each(views, function(params, view){
       retVal[view] = {
-        factory: function(){
-          return new kendo[type](params.template, new params.viewModel());
+        factory: function(query){
+          return new kendo[type](params.template, new params.viewModel(query));
         },
         isRendered: false,
         controller: null

@@ -123,6 +123,10 @@ function allProjects(params){
         },*/{
           field: 'end',
           title: 'End'
+        },
+        {
+          field: '',
+          command: 'destroy'
         }
       ]
     });

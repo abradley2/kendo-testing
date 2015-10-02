@@ -1,5 +1,5 @@
 function project(projectId){
-  console.log('route param = ',projectId);
+
   viewManager.render({
     layout: 'default',
     views: {
