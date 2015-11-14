@@ -50,12 +50,16 @@ function getProjectsListDS(){
         type: 'GET'
       },
       update: {
-        url: '/projects',
+        url: function(model){
+          return '/projects/' + model.id;
+        },
         dataType: 'json',
         type: 'PUT'
       },
       destroy: {
-        url: '/projects',
+        url: function(model){
+          return '/projects/' + model.id;
+        },
         dataType: 'json',
         type: 'DELETE'
       }

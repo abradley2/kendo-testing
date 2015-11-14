@@ -8,6 +8,7 @@ var site = require('./routes/site.js'),
 
 app.get('/', site.home);
 app.get('/projects', projects.getProjects);
+app.delete('/projects/:projectId', projects.deleteProject);
 app.get('/projects/:projectDetailId', projects.getProjectDetails);
 app.get('/team', team.getTeam);
 app.get('/projectTasks/:projectId',project.getProjectTasks);

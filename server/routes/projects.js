@@ -13,6 +13,68 @@ exports.getProjects = function(req, res){
     });
 };
 
+exports.deleteProject = function(req, res){
+  var projectId = req.params.projectId;
+
+  var batchDelete = _.curry(function batchDelete(project, projectTasks, projectDependencies, projectTeam) {
+    var batch = _.flatten(project, projectTasks, projectDependencies, projectTeam);
+
+    dbh.batch(batch, function (err) {
+      if (err) {
+        res.json(batch);
+      } else {
+        res.json(batch);
+      };
+    });
+
+    return true;
+  });
+
+  (function deleteProject(){
+    var batch = [{type: 'del', key: 'project~' + projectId }];
+    batchDelete = batchDelete(batch, _, _, _);
+  })();
+
+  (function deleteProjectTasks(){
+    var batch = [];
+
+    dbh.createReadStream({
+      gt: ('task~' + projectId + '~!'),
+      lt: ('task~' + projectId + '~~')
+    }).on('data', function(data){
+      batch.push({type: 'del', key: data.key});
+    }).on('end', function(){
+      batchDelete = batchDelete(_, batch, _, _);
+    });
+  })();
+
+  (function deleteProjectDependencies(){
+    var batch = [];
+
+    dbh.createReadStream({
+      gt: ('dependency~' + projectId + '~!'),
+      lt: ('dependency~' + projectId + '~~')
+    }).on('data', function(data){
+      batch.push({type: 'del', key: data.key});
+    }).on('end', function(){
+      batchDelete = batchDelete(_, _, batch, _);
+    });
+  })();
+
+  (function deleteProjectTeam(){
+    var batch = [];
+
+    dbh.createReadStream({
+      gt: ('projectTeam~' + projectId + '~!'),
+      lt: ('projectTeam~' + projectId + '~~')
+    }).on('data', function(data){
+      batch.push({type: 'del', key: data.key});
+    }).on('end', function(){
+      batchDelete = batchDelete(_, _, _, batch);
+    });
+  })();
+}
+
 exports.getProjectDetails = function(req, res){
   var projectId = req.params.projectDetailId,
       tasks = [],

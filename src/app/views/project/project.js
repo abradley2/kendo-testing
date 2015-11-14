@@ -19,7 +19,6 @@ function project(projectId){
   });
 
   this.show = function(){
-    window.dataSource = this.model.ganttDS;
     $('#project-gantt-container').kendoGantt({
       dataSource: this.model.ganttDS,
       dependencies: this.model.dependenciesDS

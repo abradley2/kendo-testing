@@ -54,13 +54,7 @@ function getProjectDetailsDS(projectDetailId){
           pageSize: 10,
           schema: {
             model: taskModel
-          }/*,
-          group: {
-            field: 'status',
-            aggregates: [
-              {field: 'title', aggregate: 'count'}
-            ]
-          }*/
+          }
         });
         tasksDS.read();
         var teamDS = new kendo.data.DataSource({
