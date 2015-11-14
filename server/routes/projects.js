@@ -1,5 +1,6 @@
 var dbh = require('../dbh.js'),
-    _ = require('lodash');
+    _ = require('lodash'),
+    uuid = require('node-uuid');
 
 
 exports.getProjects = function(req, res){
@@ -11,6 +12,22 @@ exports.getProjects = function(req, res){
     .on('end', function(){
       res.json(projects);
     });
+};
+
+exports.createProject = function(req, res){
+  var project = {
+    id: uuid.v4(),
+    title: req.body.title,
+    description: req.body.description,
+    manager: req.body.manager,
+    start: req.body.start,
+    projectedStart: req.body.projectedStart,
+    end: req.body.end,
+    projectedEnd: req.body.projectedEnd
+  };
+  dbh.put('project~' + project.id, project, function(err){
+    res.json(project);
+  });
 };
 
 exports.deleteProject = function(req, res){
@@ -74,6 +91,23 @@ exports.deleteProject = function(req, res){
     });
   })();
 }
+
+exports.updateProject = function(req, res){
+  var projectId = req.body.id,
+      updatedProject = {
+        id: req.body.id,
+        title: req.body.title,
+        description: req.body.description,
+        manager: req.body.manager,
+        start: req.body.start,
+        projectedStart: req.body.projectedStart,
+        end: req.body.end,
+        projectedEnd: req.body.projectedEnd
+      };
+  dbh.put('project~' + req.body.id, updatedProject, function(err){
+    res.json(updatedProject);
+  });
+};
 
 exports.getProjectDetails = function(req, res){
   var projectId = req.params.projectDetailId,

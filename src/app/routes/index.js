@@ -11,3 +11,5 @@ exports['project/:projectId'] = require('./project.js');
 exports['reports'] = require('./reports.js');
 
 exports['calendar'] = require('./calendar.js');
+
+exports['documents'] = require('./documents.js');

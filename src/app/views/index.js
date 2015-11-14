@@ -32,3 +32,8 @@ exports.team = {
   template: require('./team/team.html'),
   viewModel: require('./team/team.js')
 };
+
+exports.documents = {
+  template: require('./documents/documents.html'),
+  viewModel: require('./documents/documents.js')
+};

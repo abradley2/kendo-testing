@@ -50,7 +50,6 @@ function getProjectDetails(event){
 }
 
 function allProjects(params){
-  var self = this;
   this.evalTemplate = false;
 
   this.model = kendo.observable({
@@ -71,22 +70,20 @@ function allProjects(params){
       this.projectsListDS.cancelChanges();
     },
     createProjectDialog: function(){
-
+      this.createProjectDialog.open();
     }
   });
 
   this.show = function(){
-    var self = this;
+    this.model.pager = $('#projects-pager').kendoPager({
+      dataSource: this.model.projectsListDS
+    }).data('kendoPager');
 
-    this.pager = $('#projects-pager').kendoPager({
-      dataSource: self.model.projectsListDS
-    });
-
-    this.grid = $('#projects-grid').kendoGrid({
-      dataSource: self.model.projectsListDS,
+    this.model.grid = $('#projects-grid').kendoGrid({
+      dataSource: this.model.projectsListDS,
       detailTemplate: kendo.template($('#projects-grid-detail-template').html()),
       detailInit: getProjectDetails,
-      pager: self.pager,
+      pager: this.model.pager,
       editable: true,
       filterable: true,
       sortable: true,
@@ -111,16 +108,12 @@ function allProjects(params){
         {
           field: 'title',
           title: 'Title'
-        },/*{
-          field: 'projectedStart',
-          title: 'Projected Start'
-        },*/{
+        },
+        {
           field: 'start',
           title: 'Start'
-        },/*{
-          field: 'projectedEnd',
-          title: 'Projected End'
-        },*/{
+        },
+        {
           field: 'end',
           title: 'End'
         },
@@ -129,7 +122,16 @@ function allProjects(params){
           command: 'destroy'
         }
       ]
-    });
+    }).data('kendoGrid');
+
+    this.model.createProjectDialog = $('#create-project-dialogue').kendoWindow({
+      animation: {
+        open: {
+          duration: 100
+        }
+      },
+      visible: false
+    }).data('kendoWindow');
   };
 
   this.hide = function(){
