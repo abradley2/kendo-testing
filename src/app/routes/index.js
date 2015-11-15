@@ -2,7 +2,7 @@ exports['/'] = require('./home.js');
 
 exports['home'] = require('./home.js');
 
-exports['allProjects'] = require('./allProjects.js');
+exports['projects'] = require('./projects.js');
 
 exports['team'] = require('./team.js');
 

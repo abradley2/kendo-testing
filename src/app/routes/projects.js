@@ -1,11 +1,11 @@
-function allProjects(){
+function projects(){
   viewManager.render({
     layout: 'default',
     views: {
       '#navigation-region': 'navigation',
-      '#content-region': 'allProjects'
+      '#content-region': 'projects'
     }
   });
 }
 
-module.exports = allProjects;
+module.exports = projects;

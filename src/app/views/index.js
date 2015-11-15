@@ -3,9 +3,9 @@ exports.home = {
   viewModel: require('./home/home.js')
 };
 
-exports.allProjects = {
-  template: require('./allProjects/allProjects.html'),
-  viewModel: require('./allProjects/allProjects.js')
+exports.projects = {
+  template: require('./projects/projects.html'),
+  viewModel: require('./projects/projects.js')
 };
 
 exports.navigation = {

@@ -49,7 +49,7 @@ function getProjectDetails(event){
   });
 }
 
-function allProjects(params){
+function projects(params){
   this.evalTemplate = false;
 
   this.model = kendo.observable({
@@ -130,12 +130,16 @@ function allProjects(params){
           duration: 100
         }
       },
+      position: {
+        top: 100
+      },
+      width: 300,
       visible: false
     }).data('kendoWindow');
   };
 
   this.hide = function(){
-
+    this.model.createProjectDialog.destroy();
   };
 
   this.init = function(){
@@ -147,4 +151,4 @@ function allProjects(params){
 
 }
 
-module.exports = allProjects;
+module.exports = projects;
