@@ -56,6 +56,7 @@ function projects(params){
     projectsListDS: api.getProjectsListDS(),
     hasChanges: false,
     titleSearchValue: '',
+    createProjectDialogIsOpen: false,
     searchByTitle: function(){
       this.projectsListDS.filter({
         field: 'title',
@@ -69,12 +70,14 @@ function projects(params){
     cancelChanges: function(){
       this.projectsListDS.cancelChanges();
     },
-    createProjectDialog: function(){
-      this.createProjectDialog.open();
+    openCreateProjectDialog: function(){
+      if (!this.createProjectDialogIsOpen) this.createProjectDialog.open();
     }
   });
 
   this.show = function(){
+    var self = this;
+
     this.model.pager = $('#projects-pager').kendoPager({
       dataSource: this.model.projectsListDS
     }).data('kendoPager');
@@ -136,6 +139,16 @@ function projects(params){
       width: 300,
       visible: false
     }).data('kendoWindow');
+
+    this.model.createProjectDialog.bind('open', function(){
+      self.model.set('createProjectDialogIsOpen', true);  
+    });
+
+    this.model.createProjectDialog.bind(
+      'hide',
+      this.model.set.bind(this.model,'createProjectDialogIsOpen', false)
+    );
+
   };
 
   this.hide = function(){
