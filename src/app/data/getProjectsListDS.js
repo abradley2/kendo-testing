@@ -1,5 +1,5 @@
 function getProjectsListDS(){
-  var projectModel = {
+  var projectModel = kendo.data.Model.define({
     id: 'id',
     fields: {
       'id': {
@@ -35,7 +35,7 @@ function getProjectsListDS(){
         editable: true
       }
     }
-  };
+  });
 
   var projectsListDS = new kendo.data.DataSource({
     transport: {
