@@ -16,7 +16,7 @@ exports.getProjects = function(req, res){
 
 exports.createProject = function(req, res){
   var project = {
-    id: uuid.v4(),
+    id: uuid.v1(),
     title: req.body.title,
     description: req.body.description,
     manager: req.body.manager,
@@ -25,7 +25,27 @@ exports.createProject = function(req, res){
     end: req.body.end,
     projectedEnd: req.body.projectedEnd
   };
-  dbh.put('project~' + project.id, project, function(err){
+  var projectTask = {
+    id: uuid.v1(),
+    start: project.projectedStart,
+    end: project.projectedEnd,
+    title: project.title,
+    summary: 'true',
+    expanded: 'true'
+  };
+  var projectTeam = [{
+    "id": uuid.v1(),
+    "name": "Tony Bradley",
+    "email": "antbradley91@gmail.com",
+    "phone": "555-5555",
+    "position": "Code Monkey"
+  }];
+  var ops = [
+    {type: 'put', key: 'project~' + project.id, value: JSON.stringify(project)},
+    {type: 'put', key: 'task~' + project.id + '~' + projectTask.id, value: JSON.stringify(projectTask)},
+    {type: 'put', key: 'projectTeam~' + project.id, value: JSON.stringify(projectTeam)}
+  ];
+  dbh.batch(ops, function(err){
     res.json(project);
   });
 };

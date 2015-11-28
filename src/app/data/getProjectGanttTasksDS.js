@@ -1,6 +1,25 @@
+function parse(res){
+  // TODO: cleanup to clearer recursive function
+  function parseRes(res){
+    if (_.isArray(res)){
+      _.each(res, parseRes);
+    } else {
+      res.expanded = true;
+      res.orderId = parseInt(res.orderId);
+      res.summary = (res.summary === 'true');
+      if(res.parentId === '' ){
+        res.expanded = true;
+        res.parentId = null;
+      }
+    }
+  }
+  parseRes(res);
+  return res;
+}
+
 function getProjectGanttTasksDS(projectId){
 
-  var projectTaskModel = {
+  var projectTaskModel = kendo.data.GanttTask.define({
     id: 'id',
     fields: {
       id: {
@@ -48,28 +67,12 @@ function getProjectGanttTasksDS(projectId){
         editable: true
       }
     }
-  };
+  });
 
   var projectTasksDS = new kendo.data.GanttDataSource({
     schema: {
       model: projectTaskModel,
-      parse: function(res){
-        function parseRes(res){
-          if (_.isArray(res)){
-            _.each(res, parseRes);
-          } else {
-            res.expanded = true;
-            res.orderId = parseInt(res.orderId);
-            res.summary = (res.summary === 'true');
-            if(res.parentId === '' ){
-              res.expanded = true;
-              res.parentId = null;
-            }
-          }
-        }
-        parseRes(res);
-        return res;
-      }
+      parse: parse
     },
     transport: {
       read: {

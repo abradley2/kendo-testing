@@ -1,9 +1,17 @@
+function createTransport(data){
+  console.log('createTransport()',data);
+}
+
+function updateTransport(data){
+  console.log('updateTransport()',data);
+}
+
 function getProjectsListDS(){
   var projectModel = kendo.data.Model.define({
     id: 'id',
     fields: {
       'id': {
-        type: 'number',
+        type: 'string',
         editable: false
       },
       'title': {
@@ -42,7 +50,8 @@ function getProjectsListDS(){
       create: {
         url: '/projects',
         dataType: 'json',
-        type: 'POST'
+        type: 'POST',
+        data: createTransport
       },
       read: {
         url: '/projects',
@@ -54,7 +63,8 @@ function getProjectsListDS(){
           return '/projects/' + model.id;
         },
         dataType: 'json',
-        type: 'PUT'
+        type: 'PUT',
+        data: updateTransport
       },
       destroy: {
         url: function(model){

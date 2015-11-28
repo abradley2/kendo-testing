@@ -1,6 +1,10 @@
+function parse(res){
+  return res;
+}
+
 function getProjectTasksDS(projectId){
 
-  var projectTaskModel = {
+  var projectTaskModel = kendo.data.Model.define({
     id: 'id',
     fields: {
       totalTasks: {
@@ -16,12 +20,13 @@ function getProjectTasksDS(projectId){
         editable: false
       }
     }
-  };
+  });
 
   var projectTasksDS = new kendo.data.DataSource({
 
     schema: {
-      model: projectTaskModel
+      model: projectTaskModel,
+      parse: parse
     }
 
   });

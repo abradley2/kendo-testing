@@ -79,7 +79,7 @@ exports.deleteProjectTask = function(req, res){
 exports.createProjectTask = function(req, res){
   var projectId = req.params.projectId,
       newTask = {
-        id: uuid.v4(),
+        id: uuid.v1(),
         start: req.body.start,
         end: req.body.end,
         description: req.body.description,

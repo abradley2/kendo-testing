@@ -1,68 +1,72 @@
-<div class='row'>
-  <div class='btn-group col-sm-6'>
-    <button type='button' class='btn btn-primary' data-bind='click: openCreateProjectDialog'>
-      Add Project
-    </button>
-    <button type='button' class='btn btn-success' data-bind='visible: hasChanges, click: saveChanges'>Save Changes</button>
-    <button type='button' class='btn btn-warning' data-bind='visible: hasChanges, click: cancelChanges'>Cancel Changes</button>
-  </div>
-  <div class='col-sm-6'>
-    <div class='col-xs-6'>
-      <input type='text' class='form-control' data-bind='value: titleSearchValue'></input>
-    </div>
-    <div class='col-xs-6'>
-      <button class='btn btn-default' data-bind='click: searchByTitle'>Search By Title</button>
-    </div>
-  </div>
-</div>
-<div id='projects-grid'></div>
-<div id='projects-pager'></div>
-
-<template id='projects-grid-action-template'>
-  <a href='\\#project/#= id #'><i class='fa fa-sitemap'></i><span>Manage Tasks</span></a>
-  <br/>
-  <a href='\\#reports/#= id #'><i class='fa fa-area-chart'></i><span>View Reports</span></a>
-  <br/>
-  <a href='\\#team/#= id #'><i class='fa fa-users'></i><span>Manage Team</span></a>
-</template>
-
-<template id='projects-grid-detail-template'>
+<div class='col-sm-12'>
   <div class='row'>
-    <p class='lead'>#:description#</p>
-    <div class='col-sm-4'>
-      <div class='team-container'></div>
-      <div class='team-pager'></div>
+    <div class='btn-group col-sm-6'>
+      <button type='button' class='btn btn-primary' data-bind='click: openCreateProjectDialog'>
+        Add Project
+      </button>
+      <button type='button' class='btn btn-success' data-bind='visible: hasChanges, click: saveChanges'>Save Changes</button>
+      <button type='button' class='btn btn-warning' data-bind='visible: hasChanges, click: cancelChanges'>Cancel Changes</button>
     </div>
-
-    <div class='col-sm-7'>
-      <div class='tasks-container'></div>
-      <div class='tasks-pager'></div>
-    </div>
-  </div>
-</template>
-
-
-<div class='centered-window' id='create-project-dialogue'>
-  <div class='row'>
     <div class='col-sm-6'>
-      <div class='form-group'>
-        <label>Projected Start:</label>
-        <div data-role='projected-start'/>
+      <div class='col-xs-6'>
+        <input type='text' class='form-control' data-bind='value: titleSearchValue'></input>
+      </div>
+      <div class='col-xs-6'>
+        <button class='btn btn-default' data-bind='click: searchByTitle'>Search By Title</button>
       </div>
     </div>
-    <div class='col-sm-6'>
-      <label>Projected End:</label>
-      <div data-role='projected-end'/>
-    </div>
   </div>
-  <div class='row'>
-    <div class='col-sm-6'>
-      <label>Title:</label>
-      <input type='text' class='form-control' data-role='project-title'/>
+  <div id='projects-grid'></div>
+  <div id='projects-pager'></div>
+
+  <template id='projects-grid-action-template'>
+    <a href='\\#project/#= id #'><i class='fa fa-sitemap'></i><span>Manage Tasks</span></a>
+    <br/>
+    <a href='\\#reports/#= id #'><i class='fa fa-area-chart'></i><span>View Reports</span></a>
+    <br/>
+    <a href='\\#team/#= id #'><i class='fa fa-users'></i><span>Manage Team</span></a>
+  </template>
+
+  <template id='projects-grid-detail-template'>
+    <div class='row'>
+      <p class='lead'>#:description#</p>
+      <div class='col-sm-4'>
+        <div class='team-container'></div>
+        <div class='team-pager'></div>
+      </div>
+
+      <div class='col-sm-7'>
+        <div class='tasks-container'></div>
+        <div class='tasks-pager'></div>
+      </div>
     </div>
-    <div class='col-sm-6'>
-      <label>Description:</label>
-      <div data-role='project-description'></div>
+  </template>
+
+
+  <div class='centered-window' id='create-project-dialogue'>
+    <div class='form-group'>
+      <div>
+        <label>Title:</label>
+        <input type='text' class='form-control' data-role='title' data-type='text'/>
+      </div>
+      <div>
+        <label>Description:</label>
+        <textarea data-role='description' data-type='textarea'></textarea>
+      </div>
+    </div>
+    <div class='form-group'>
+      <div>
+        <label>Projected Start:</label>
+        <input data-role='projectedStart' data-type='datetime'/>
+      </div>
+      <div>
+        <label>Projected End:</label>
+        <input data-role='projectedEnd' data-type='datetime'/>
+      </div>
+    </div>
+    <div class='button-group'>
+      <button class='btn btn-success' data-role='submit-button'>Submit</button>
+      <button class='btn btn-danager' data-role='cancel-button'>Cancel</button>
     </div>
   </div>
 </div>

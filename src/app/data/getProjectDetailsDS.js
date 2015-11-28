@@ -1,9 +1,12 @@
 // This dataSource is a container for ProjectTasksDS + ProjectTeamDS
 function getProjectDetailsDS(projectDetailId){
-
-  var taskModel = {
+  console.log('projectDetailId = ',projectDetailId);
+  var taskModel = kendo.data.Model.define({
     id: 'id',
     fields: {
+      id: {
+        type: 'string'
+      },
       completed: {
         type: 'boolean'
       },
@@ -17,11 +20,14 @@ function getProjectDetailsDS(projectDetailId){
         type: 'date'
       }
     }
-  };
+  });
 
-  var teamModel = {
+  var teamModel = kendo.data.Model.define({
     id: 'id',
     fields: {
+      id: {
+        type: 'string'
+      },
       email: {
         type: 'text'
       },
@@ -35,7 +41,7 @@ function getProjectDetailsDS(projectDetailId){
         type: 'text'
       }
     }
-  };
+  });
 
   var projectDetailsDS = new kendo.data.DataSource({
 

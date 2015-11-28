@@ -1,4 +1,4 @@
-var createProjectDialogForm = require('./createProjectDialogForm.js');
+var CreateProjectForm = require('./CreateProjectForm.js');
 
 // todo: grid does not work for mobile. Have a listView ready
 
@@ -73,7 +73,7 @@ function projects(params){
       this.projectsListDS.cancelChanges();
     },
     openCreateProjectDialog: function(){
-      if (!this.createProjectDialogIsOpen) this.createProjectDialog.open();
+      this.createProjectForm.open();
     }
   });
 
@@ -129,35 +129,14 @@ function projects(params){
       ]
     }).data('kendoGrid');
 
-    this.model.createProjectDialog = $('#create-project-dialogue').kendoWindow({
-      animation: {
-        open: {
-          duration: 100
-        }
-      },
-      position: {
-        top: 100
-      },
-      width: 700,
-      height: 300,
-      visible: false
-    }).data('kendoWindow');
-
-    this.model.createProjectDialog.bind('open', function(){
-      self.model.set('createProjectDialogIsOpen', true);
-    });
-
-    this.model.createProjectDialog.bind(
-      'close',
-      this.model.set.bind(this.model,'createProjectDialogIsOpen', false)
+    this.model.createProjectForm = new CreateProjectForm(
+      $('#create-project-dialogue'),
+      this.model.projectsListDS
     );
-
-    createProjectDialogForm($('#create-project-dialogue'), this.model.projectsListDS);
-
   };
 
   this.hide = function(){
-    this.model.createProjectDialog.destroy();
+    this.model.createProjectForm.destroy();
   };
 
   this.init = function(){

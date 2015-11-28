@@ -7,8 +7,12 @@ var site = require('./routes/site.js'),
     team = require('./routes/team.js');
 
 app.get('/', site.home);
+
 app.get('/projects', projects.getProjects);
+app.post('/projects', projects.createProject);
 app.delete('/projects/:projectId', projects.deleteProject);
+app.put('/projects/:projectId', projects.updateProject);
+
 app.get('/projects/:projectDetailId', projects.getProjectDetails);
 app.get('/team', team.getTeam);
 app.get('/projectTasks/:projectId',project.getProjectTasks);
